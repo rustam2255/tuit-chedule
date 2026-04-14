@@ -7,7 +7,14 @@ import masterdataRoutes from "./modules/masterdata/masterdata.routes.js";
 import { seedFirestore } from "./lib/firestore.js";
 
 const app = express();
-app.use(cors({ origin: env.clientOrigin }));
+
+// 🔥 HAMMA ORIGINLARGA RUXSAT
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
 app.use(express.json({ limit: "2mb" }));
 
 app.get("/api/health", (_req, res) => {
@@ -18,12 +25,15 @@ app.use("/api/auth", authRoutes);
 app.use("/api/masterdata", masterdataRoutes);
 app.use("/api/scheduling", schedulingRoutes);
 
-app.listen(env.port, async () => {
+// ✅ Render uchun
+const PORT = env.port || 10000;
+
+app.listen(PORT, "0.0.0.0", async () => {
   try {
     await seedFirestore(false);
-    console.log(`Server running on http://localhost:${env.port}`);
-    console.log("Firestore connected and seed checked.");
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log("✅ Firestore connected.");
   } catch (error: any) {
-    console.error("Server started, but Firestore seed failed:", error?.message || error);
+    console.error("⚠️ Firestore error:", error?.message || error);
   }
 });
