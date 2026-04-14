@@ -1,0 +1,19 @@
+import { useState } from "react";
+import DataTable from "@/components/DataTable";
+import DeleteButton from "@/components/DeleteButton";
+import FormCard from "@/components/FormCard";
+import { InputField, Label, SelectField } from "@/components/FormControls";
+import SectionGrid from "@/components/SectionGrid";
+import { useMasterData } from "@/hooks/useMasterData";
+import api from "@/shared/api";
+
+export default function TeachersPage() {
+  const { data, refresh } = useMasterData();
+  const [form, setForm] = useState({ fullName: "", departmentId: data.departments[0]?.id ?? "", unavailableTimeslotIds: "" });
+  const [loading, setLoading] = useState(false);
+  const depMap = new Map(data.departments.map((item) => [item.id, item.name]));
+  const slotLabel = new Map(data.timeslots.map((item) => [item.id, `${item.day} ${item.startTime}`]));
+  const submit = async (e: React.FormEvent) => { e.preventDefault(); setLoading(true); try { await api.post("/masterdata/teachers", { ...form, unavailableTimeslotIds: form.unavailableTimeslotIds.split(",").map((item) => item.trim()).filter(Boolean) }); setForm({ fullName: "", departmentId: data.departments[0]?.id ?? "", unavailableTimeslotIds: "" }); await refresh(); } finally { setLoading(false); } };
+  const remove = async (id: string) => { await api.delete(`/masterdata/teachers/${id}`); await refresh(); };
+  return <SectionGrid><FormCard title="Ustoz qo‘shish" description="Band slotlar vergul bilan yoziladi. Masalan: ts-1, ts-5"><form className="space-y-4" onSubmit={submit}><Label title="F.I.SH"><InputField value={form.fullName} onChange={(e) => setForm({ ...form, fullName: e.target.value })} /></Label><Label title="Kafedra"><SelectField value={form.departmentId} onChange={(e) => setForm({ ...form, departmentId: e.target.value })}>{data.departments.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}</SelectField></Label><Label title="Band slotlar"><InputField placeholder="ts-1, ts-5" value={form.unavailableTimeslotIds} onChange={(e) => setForm({ ...form, unavailableTimeslotIds: e.target.value })} /></Label><button disabled={loading || !data.departments.length} className="rounded-2xl bg-brand-700 px-5 py-3 text-sm font-semibold text-white">{loading ? "Saqlanmoqda..." : "Qo‘shish"}</button></form></FormCard><DataTable title="Ustozlar ro‘yxati" data={data.teachers} columns={[{ key: "fullName", title: "F.I.SH" }, { key: "departmentId", title: "Kafedra", render: (item) => depMap.get(item.departmentId) ?? item.departmentId }, { key: "unavailableTimeslotIds", title: "Band slotlar", render: (item) => item.unavailableTimeslotIds.map((slot) => slotLabel.get(slot) ?? slot).join(", ") || "-" }, { key: "actions", title: "Amal", render: (item) => <DeleteButton onClick={() => remove(item.id)} /> }]} /></SectionGrid>;
+}

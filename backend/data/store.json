@@ -1,0 +1,63 @@
+{
+  "faculties": [
+    { "id": "f1", "name": "Dasturiy injiniring", "code": "DI" },
+    { "id": "f2", "name": "Sun'iy intellekt", "code": "SI" },
+    { "id": "f3", "name": "Kompyuter injiniring", "code": "KI" }
+  ],
+  "departments": [
+    { "id": "d1", "facultyId": "f1", "name": "Dasturiy ta'minot", "code": "DT" },
+    { "id": "d2", "facultyId": "f2", "name": "AI va Data Science", "code": "AI" },
+    { "id": "d3", "facultyId": "f3", "name": "Kompyuter tizimlari", "code": "KT" }
+  ],
+  "subjects": [
+    { "id": "s1", "departmentId": "d1", "name": "Dasturiy injiniring", "code": "SE201" },
+    { "id": "s2", "departmentId": "d1", "name": "Algoritmlar va ma'lumot tuzilmalari", "code": "ALG203" },
+    { "id": "s3", "departmentId": "d2", "name": "Sun'iy intellekt asoslari", "code": "AI205" },
+    { "id": "s4", "departmentId": "d2", "name": "Ma'lumotlar bazasi", "code": "DB202" },
+    { "id": "s5", "departmentId": "d3", "name": "Kompyuter arxitekturasi", "code": "CA204" },
+    { "id": "s6", "departmentId": "d3", "name": "Tarmoq laboratoriyasi", "code": "NET206" }
+  ],
+  "rooms": [
+    { "id": "r1", "building": "A", "name": "A-101", "capacity": 120, "type": "lecture" },
+    { "id": "r2", "building": "A", "name": "A-205", "capacity": 40, "type": "seminar" },
+    { "id": "r3", "building": "B", "name": "B-303", "capacity": 30, "type": "computer_lab" },
+    { "id": "r4", "building": "C", "name": "C-115", "capacity": 32, "type": "lab" },
+    { "id": "r5", "building": "D", "name": "D-210", "capacity": 60, "type": "lecture" }
+  ],
+  "teachers": [
+    { "id": "t1", "fullName": "Dilshod Karimov", "departmentId": "d1", "unavailableTimeslotIds": ["ts-1"] },
+    { "id": "t2", "fullName": "Malika Ergasheva", "departmentId": "d2", "unavailableTimeslotIds": ["ts-5"] },
+    { "id": "t3", "fullName": "Azizbek Yuldashev", "departmentId": "d3", "unavailableTimeslotIds": [] }
+  ],
+  "groups": [
+    { "id": "g1", "name": "SE-210", "facultyId": "f1", "departmentId": "d1", "size": 28, "maxLessonsPerDay": 3 },
+    { "id": "g2", "name": "AI-220", "facultyId": "f2", "departmentId": "d2", "size": 30, "maxLessonsPerDay": 3 },
+    { "id": "g3", "name": "KI-205", "facultyId": "f3", "departmentId": "d3", "size": 52, "maxLessonsPerDay": 3 }
+  ],
+  "timeslots": [
+    { "id": "ts-1", "day": "monday", "order": 1, "startTime": "08:30", "endTime": "09:50" },
+    { "id": "ts-2", "day": "monday", "order": 2, "startTime": "10:00", "endTime": "11:20" },
+    { "id": "ts-3", "day": "monday", "order": 3, "startTime": "11:30", "endTime": "12:50" },
+    { "id": "ts-4", "day": "monday", "order": 4, "startTime": "13:30", "endTime": "14:50" },
+    { "id": "ts-5", "day": "tuesday", "order": 1, "startTime": "08:30", "endTime": "09:50" },
+    { "id": "ts-6", "day": "tuesday", "order": 2, "startTime": "10:00", "endTime": "11:20" },
+    { "id": "ts-7", "day": "tuesday", "order": 3, "startTime": "11:30", "endTime": "12:50" },
+    { "id": "ts-8", "day": "wednesday", "order": 1, "startTime": "08:30", "endTime": "09:50" },
+    { "id": "ts-9", "day": "wednesday", "order": 2, "startTime": "10:00", "endTime": "11:20" },
+    { "id": "ts-10", "day": "wednesday", "order": 3, "startTime": "11:30", "endTime": "12:50" },
+    { "id": "ts-11", "day": "thursday", "order": 1, "startTime": "08:30", "endTime": "09:50" },
+    { "id": "ts-12", "day": "thursday", "order": 2, "startTime": "10:00", "endTime": "11:20" },
+    { "id": "ts-13", "day": "thursday", "order": 3, "startTime": "11:30", "endTime": "12:50" },
+    { "id": "ts-14", "day": "friday", "order": 1, "startTime": "08:30", "endTime": "09:50" },
+    { "id": "ts-15", "day": "friday", "order": 2, "startTime": "10:00", "endTime": "11:20" },
+    { "id": "ts-16", "day": "saturday", "order": 1, "startTime": "08:30", "endTime": "09:50" }
+  ],
+  "loads": [
+    { "id": "l1", "subjectId": "s1", "groupId": "g1", "teacherId": "t1", "lessonType": "seminar", "weeklyLessons": 2, "preferredBuilding": "A" },
+    { "id": "l2", "subjectId": "s2", "groupId": "g1", "teacherId": "t1", "lessonType": "lecture", "weeklyLessons": 1, "preferredBuilding": "D" },
+    { "id": "l3", "subjectId": "s3", "groupId": "g2", "teacherId": "t2", "lessonType": "computer_lab", "weeklyLessons": 2, "preferredBuilding": "B" },
+    { "id": "l4", "subjectId": "s4", "groupId": "g2", "teacherId": "t2", "lessonType": "lecture", "weeklyLessons": 1 },
+    { "id": "l5", "subjectId": "s5", "groupId": "g3", "teacherId": "t3", "lessonType": "lecture", "weeklyLessons": 2, "preferredBuilding": "A" },
+    { "id": "l6", "subjectId": "s6", "groupId": "g3", "teacherId": "t3", "lessonType": "lab", "weeklyLessons": 1, "preferredBuilding": "C" }
+  ]
+}
